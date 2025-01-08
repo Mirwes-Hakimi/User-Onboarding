@@ -81,12 +81,15 @@ export default function App() {
     // whether the type of event target is "checkbox" and act accordingly.
     // At every change, you should validate the updated value and send the validation
     // error to the state where we track frontend validation errors.
-console.log('hey baby girl')
+
+   
     let {type, name, checked, value} = evt.target;
     value = type == 'checkbox' ? checked : value
       // if( type == 'checkbox' ) value = checked;
         setValues({ ...values, [name]: value})
-
+  yup.reach(schema, name).validate(value)
+      .then(() => setErrors({ ...errors, [name]: "" }))
+      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }))
       
   }
 
